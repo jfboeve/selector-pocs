@@ -1,54 +1,59 @@
 import Blits from '@lightningjs/blits'
-
 import Loader from '../components/Loader.js'
-import ComplexTextSelector from '../components/selector/ComplexTextSelector.js'
-import SimpleTextSelector from '../components/selector/SimpleTextSelector.js'
-import TextAndImageSelector from '../components/selector/TextAndImageSelector.js'
+import Selector from '../components/selector/Selector.js'
 
 export default Blits.Component('Home', {
   components: {
     Loader,
-    ComplexTextSelector,
-    SimpleTextSelector,
-    TextAndImageSelector,
+    Selector,
   },
   template: `
-    <Element
-    	w="1920"
-    	h="1080"
-    	color="#1e293b"
-    >
-    	<ComplexTextSelector
-    		x="1000"
-    		y="150"
-    		options="$complexTextSelectorOptions"
-    		optionWidth="600"
-    		optionHeight="50"
-    		spacing="300"
-    		ref="complexTextSelector"
-    	/>
-    
-    	<SimpleTextSelector
-    		x="1000"
-    		y="50%"
-    		optionWidth="300"
-    		optionHeight="50"
-    		options="$simpleTextOptions"
-    		ref="simpleTextSelector"
-    	/>
-    
-    	<TextAndImageSelector
-    		x="1000"
-    		y="75%"
-    		optionWidth="400"
-    		optionHeight="60"
-    		options="$textAndImageOptions"
-    		ref="textAndImageSelector"
-    	/>
+    <Element w="1920" h="1080" color="#1e293b">
+      <Selector
+        x="1000"
+        y="100"
+        items="$complexTextSelectorOptions"
+        itemWidth="600"
+        itemHeight="50"
+        itemComponent="ComplexTextOption"
+        spacing="300"
+        ref="complexTextSelector"
+      />
+      <Selector
+        x="1000"
+        y="50%"
+        items="$simpleTextOptions"
+        itemWidth="300"
+        itemHeight="50"
+        itemComponent="SimpleTextOption"
+        ref="simpleTextSelector"
+      />
+      <Selector
+        x="1000"
+        y="75%"
+        itemWidth="400"
+        itemHeight="60"
+        items="$textAndImageOptions"
+        itemComponent="TextAndImageOption"
+        ref="textAndImageSelector"
+      />
     </Element>
   `,
   state() {
     return {
+      simpleTextOptions: [
+        { text: 'Simple a', value: 'SIM a' },
+        { text: 'Simple b', value: 'SIM b' },
+        { text: 'Simple c', value: 'SIM c' },
+        { text: 'Simple d', value: 'SIM d' },
+        { text: 'Simple e', value: 'SIM e' },
+        { text: 'Simple f', value: 'SIM f' },
+        { text: 'Simple g', value: 'SIM g' },
+        { text: 'Simple h', value: 'SIM h' },
+        { text: 'Simple i', value: 'SIM i' },
+        { text: 'Simple j', value: 'SIM j' },
+        { text: 'Simple k', value: 'SIM k' },
+      ],
       complexTextSelectorOptions: [
         { texts: ['Complex Text A', '(additional text)'], value: 'A' },
         { texts: ['Complex Text B', '(additional text)'], value: 'B' },
@@ -61,10 +66,6 @@ export default Blits.Component('Home', {
         { texts: ['Complex Text I', '(additional text)'], value: 'I' },
         { texts: ['Complex Text J', '(additional text)'], value: 'J' },
         { texts: ['Complex Text K', '(additional text)'], value: 'K' },
-      ],
-      simpleTextOptions: [
-        { text: 'Simple A', value: 'SIM A' },
-        { text: 'Simple B', value: 'SIM B' },
       ],
       textAndImageOptions: [
         {
@@ -93,21 +94,22 @@ export default Blits.Component('Home', {
   },
   hooks: {
     focus() {
-      this.select("complexTextSelector").focus()
+      this.select('complexTextSelector').focus()
     },
     init() {
+      // this.$listen('SimpleTextOptionSelected', (value) => {
+      //   console.log('SimpleTextOptionSelected', value)
+      // })
+
       this.$listen('complexTextSelector', (value) => {
-        console.log('complexTextSelector', value)
         this.select('simpleTextSelector').focus()
       })
 
       this.$listen('simpleTextSelector', (value) => {
-        console.log('simpleTextSelector', value)
         this.select('textAndImageSelector').focus()
       })
 
       this.$listen('textAndImageSelector', (value) => {
-        console.log('textAndImageSelector', value)
         this.select('complexTextSelector').focus()
       })
     },

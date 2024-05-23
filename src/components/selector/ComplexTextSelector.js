@@ -10,47 +10,39 @@ import ComplexTextOption from './option/ComplexTextOption'
 export default Blits.Component('ComplexTextSelector', {
   components: { ComplexTextOption },
   template: `
-    <Element
-    	w="$optionWidth"
-    	:h="$optionHeight * $viewableOptions"
-    	mount="0.5"
-    >
-    	<Element
-    		src="assets/images/navigationIcons/upArrow.png"
-    		w="36"
-    		h="21"
-    		x="50%"
-    		y="-21"
-    		mount="0.5"
-    		:alpha="$alphaUpArrow"
-    	/>
-    	<Element
-    		w="$optionWidth"
-    		:h="$optionHeight * $viewableOptions"
-    		clipping="true"
-    	>
-    		<Element :y.transition="$optionsY">
-    			<ComplexTextOption
-    				:for="(option,index) in $options"
-    				:texts="$option.texts"
-    				w="$optionWidth"
-    				spacing="$spacing"
-    				h="$optionHeight"
-    				:y="($optionHeight * $index)"
-    				:ref="'option' + ($index + 1)"
-    				value="$option.value"
-    			/>
-    		</Element>
-    	</Element>
-    	<Element
-    		src="assets/images/navigationIcons/downArrow.png"
-    		w="36"
-    		h="21"
-    		:y="($optionHeight * $viewableOptions) + 21"
-    		x="50%"
-    		mount="0.5"
-    		:alpha="$alphaDownArrow"
-    	/>
+    <Element w="$optionWidth" :h="$optionHeight * $viewableOptions" mount="0.5">
+      <Element
+        src="assets/images/navigationIcons/upArrow.png"
+        w="36"
+        h="21"
+        x="50%"
+        y="-21"
+        mount="0.5"
+        :alpha="$alphaUpArrow"
+      />
+      <Element w="$optionWidth" :h="$optionHeight * $viewableOptions" clipping="true">
+        <Element :y.transition="$optionsY">
+          <ComplexTextOption
+            :for="(option,index) in $options"
+            :texts="$option.texts"
+            w="$optionWidth"
+            spacing="$spacing"
+            h="$optionHeight"
+            :y="($optionHeight * $index)"
+            :ref="'option' + ($index + 1)"
+            value="$option.value"
+          />
+        </Element>
+      </Element>
+      <Element
+        src="assets/images/navigationIcons/downArrow.png"
+        w="36"
+        h="21"
+        :y="($optionHeight * $viewableOptions) + 21"
+        x="50%"
+        mount="0.5"
+        :alpha="$alphaDownArrow"
+      />
     </Element>
   `,
   hooks: {
